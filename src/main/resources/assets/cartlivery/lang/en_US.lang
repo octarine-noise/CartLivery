@@ -1,0 +1,36 @@
+item.cartlivery.cutter.name=Livery Cutting Tool
+item.cartlivery.sticker.name=Livery Sticker
+
+cartlivery.stripe1.name=Basic Stripe
+cartlivery.stripe2.name=Double Stripes
+cartlivery.db.name=DB
+cartlivery.arrowup.name=Arrow Up
+cartlivery.dblarrow.name=Double Arrows
+cartlivery.corners1.name=Corners
+cartlivery.railtech.name=Rail-Tech
+cartlivery.test.name=Test Pattern
+
+color.0.name=Black
+color.1.name=Red
+color.2.name=Green
+color.3.name=Brown
+color.4.name=Blue
+color.5.name=Purple
+color.6.name=Cyan
+color.7.name=Light Gray
+color.8.name=Gray
+color.9.name=Pink
+color.10.name=Lime
+color.11.name=Yellow
+color.12.name=Light Blue
+color.13.name=Magenta
+color.14.name=Orange
+color.15.name=White
+
+option.cartlivery.showPattern=Pattern name
+option.cartlivery.showResPack=Resource pack
+option.cartlivery.showColors=Colors
+
+message.cartlivery.invalidExclusion=Mod %s tried to register a class exclusion for a non-existent class: %s
+message.cartlivery.invalidLiveryRequest=Received an invalid livery request packet from player %s
+message.cartlivery.invalidLiveryUpdate=Received an invalid livery update packet

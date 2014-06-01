@@ -1,0 +1,8 @@
+[{
+  "modid": "CartLivery",
+  "name": "Cart Livery",
+  "version": "$version",
+  "mcversion": "$mcversion",
+  "description": "Paint minecarts and apply stickers to them!",
+  "credits": "Made by octarine-noise"
+}]
