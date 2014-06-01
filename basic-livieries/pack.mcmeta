@@ -1,0 +1,18 @@
+{
+  "pack": {
+    "pack_format": 1,
+    "description": "octarine-noise's cart livery starter pack"
+  },
+  "cartlivery" : {
+	"liverylist" : [
+		"arrowup",
+		"corners1",
+		"dblarrow",
+		"stripe1",
+		"stripe2",
+		"bottom",
+		"thissideup",
+		"love"
+	]
+  }
+}
