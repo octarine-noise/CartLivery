@@ -37,8 +37,8 @@ option.cartlivery.showResPack=Resource pack
 option.cartlivery.showColors=Colors
 
 message.cartlivery.overwriteModel=Overwriting default cart model
-message.cartlivery.overwriteModelMinecraftFail=Unable to overwrite Minecraft cart model, minecarts will render normally
-message.cartlivery.overwriteModelRailcraftFail=Unable to overwrite Railcraft cart model, minecarts will render normally
+message.cartlivery.overwriteModel=MinecraftFail=Unable to overwrite Minecraft cart model, minecarts will render normally
+message.cartlivery.overwriteModel=RailcraftFail=Unable to overwrite Railcraft cart model, minecarts will render normally
 message.cartlivery.registerBuiltIn=Registering %d built-in liveries from mod %s
 message.cartlivery.invalidExclusion=Mod %s tried to register a class exclusion for a non-existent class: %s
 message.cartlivery.invalidLiveryRequest=Received an invalid livery request packet from player %s
