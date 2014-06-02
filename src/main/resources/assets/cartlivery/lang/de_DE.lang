@@ -1,0 +1,36 @@
+item.cartlivery.cutter.name=Livree-Schneidewerkzeug
+item.cartlivery.sticker.name=Livree-Sticker
+
+cartlivery.stripe1.name=Basisstreifen
+cartlivery.stripe2.name=Doppelstreifen
+cartlivery.db.name=DB
+cartlivery.arrowup.name=Pfeil Oben
+cartlivery.dblarrow.name=Doppelpfeile
+cartlivery.corners1.name=Kanten
+cartlivery.railtech.name=Rail-Tech
+cartlivery.test.name=Test-Schablone
+
+color.0.name=Schwarz
+color.1.name=Rot
+color.2.name=Grün
+color.3.name=Braun
+color.4.name=Blau
+color.5.name=Violett
+color.6.name=Türkis
+color.7.name=Hellgrau
+color.8.name=Grau
+color.9.name=Pink
+color.10.name=Hellgrün
+color.11.name=Gelb
+color.12.name=Hellblau
+color.13.name=Magentafarben
+color.14.name=Orange
+color.15.name=Weiß
+
+option.cartlivery.showPattern=Schablonenname
+option.cartlivery.showResPack=Ressourcenpaket
+option.cartlivery.showColors=Farben
+
+message.cartlivery.invalidExclusion=Mod %s versuchte, eine Klassesausnahme für nicht-existente Klasse zu registrieren: %s
+message.cartlivery.invalidLiveryRequest=Ungültige Livery-Anfrage von Spieler %s erhalten
+message.cartlivery.invalidLiveryUpdate=Ungültiges Livery-Update-Paket erhalten
