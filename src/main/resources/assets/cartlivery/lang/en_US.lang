@@ -1,14 +1,19 @@
 item.cartlivery.cutter.name=Livery Cutting Tool
 item.cartlivery.sticker.name=Livery Sticker
+cartlivery.builtin=Built-in: %s
+cartlivery.respack=Pack: %s
 
 cartlivery.stripe1.name=Basic Stripe
 cartlivery.stripe2.name=Double Stripes
-cartlivery.db.name=DB
 cartlivery.arrowup.name=Arrow Up
 cartlivery.dblarrow.name=Double Arrows
 cartlivery.corners1.name=Corners
+cartlivery.bottom.name=Two-color bottom
+cartlivery.thissideup.name=This side up
+cartlivery.love.name=Love
+cartlivery.db.name=Deutsche Bahn
 cartlivery.railtech.name=Rail-Tech
-cartlivery.test.name=Test Pattern
+cartlivery.fragile.name=Fragile
 
 color.0.name=Black
 color.1.name=Red
@@ -31,6 +36,10 @@ option.cartlivery.showPattern=Pattern name
 option.cartlivery.showResPack=Resource pack
 option.cartlivery.showColors=Colors
 
+message.cartlivery.overwriteModel=Overwriting default cart model
+message.cartlivery.overwriteModelMinecraftFail=Unable to overwrite Minecraft cart model, minecarts will render normally
+message.cartlivery.overwriteModelRailcraftFail=Unable to overwrite Railcraft cart model, minecarts will render normally
+message.cartlivery.registerBuiltIn=Registering %d built-in liveries from mod %s
 message.cartlivery.invalidExclusion=Mod %s tried to register a class exclusion for a non-existent class: %s
 message.cartlivery.invalidLiveryRequest=Received an invalid livery request packet from player %s
 message.cartlivery.invalidLiveryUpdate=Received an invalid livery update packet

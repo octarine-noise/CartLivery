@@ -8,6 +8,7 @@ import mods.cartlivery.client.model.ModelCartLivery;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderMinecart;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.entity.ai.EntityMinecartMobSpawner;
 import net.minecraft.entity.item.EntityMinecart;
@@ -26,7 +27,7 @@ public class ClientProxy extends CommonProxy {
 		
 		((SimpleReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new LiveryTextureRegistry());
 		
-		ModCartLivery.log.info("overwriting cart model");
+		ModCartLivery.log.info(I18n.format("message.cartlivery.overwriteModel"));
 		if (Loader.isModLoaded("Railcraft")) {
 			replaceRailcraftCartModel();	
 		} else {
@@ -45,7 +46,7 @@ public class ClientProxy extends CommonProxy {
 				modelMinecart.set(renderer, new ModelCartLivery());
 			}
 		} catch (Exception e) {
-			ModCartLivery.log.warn("unable to overwrite Minecraft cart model, minecarts will render normally");
+			ModCartLivery.log.warn(I18n.format("message.cartlivery.overwriteModelMinecraftFail"));
 		}
 	}
 	
@@ -61,7 +62,7 @@ public class ClientProxy extends CommonProxy {
 			defaultCore.set(null, new ModelCartLivery());
 			modifiers.set(defaultCore, defaultCore.getModifiers() | Modifier.FINAL);
 		} catch (Exception e) {
-			ModCartLivery.log.warn("unable to overwrite Railcraft cart model, minecarts will render normally");
+			ModCartLivery.log.warn(I18n.format("message.cartlivery.overwriteModelRailcraftFail"));
 		}
 	}
 }

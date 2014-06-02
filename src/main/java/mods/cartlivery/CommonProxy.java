@@ -1,6 +1,6 @@
 package mods.cartlivery;
 
-import java.util.List;
+import java.util.Set;
 
 import mods.cartlivery.common.CartLivery;
 import mods.cartlivery.common.item.ItemCutter;
@@ -24,8 +24,9 @@ import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -35,7 +36,7 @@ import cpw.mods.fml.relauncher.Side;
 public class CommonProxy {
 
 	public static SimpleNetworkWrapper network = new SimpleNetworkWrapper(ModCartLivery.CHANNEL_NAME);
-	public static List<Class<?>> excludedClasses = Lists.newLinkedList();
+	public static Set<Class<?>> excludedClasses = Sets.newHashSet();
 	
 	public static ItemSticker itemSticker = new ItemSticker();
 	public static ItemCutter itemCutter = new ItemCutter();
@@ -53,6 +54,10 @@ public class CommonProxy {
 		GameRegistry.addShapelessRecipe(new ItemStack(itemCutter), Items.shears, Items.paper);
 		GameRegistry.addRecipe(new LiveryStickerColoringRecipe());
 		RecipeSorter.register("cartlivery:coloring", LiveryStickerColoringRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
+		
+		FMLInterModComms.sendMessage(ModCartLivery.MOD_ID, "addClassExclusion", "mods.railcraft.common.carts.EntityLocomotive");
+		FMLInterModComms.sendMessage(ModCartLivery.MOD_ID, "addClassExclusion", "mods.railcraft.common.carts.EntityTunnelBore");
+		FMLInterModComms.sendMessage(ModCartLivery.MOD_ID, "addBuiltInLiveries", "stripe1,stripe2,arrowup,dblarrow,corners1,bottom,thissideup,love,db,railtech,fragile");
 	}
 	
 	@SubscribeEvent

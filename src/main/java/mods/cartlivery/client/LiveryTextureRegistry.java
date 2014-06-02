@@ -8,6 +8,7 @@ import java.util.Map;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.SimpleTexture;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.resources.ResourcePackRepository;
@@ -30,6 +31,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class LiveryTextureRegistry implements IResourceManagerReloadListener {
 
 	public static Map<String, LiveryTextureInfo> map = Maps.newHashMap();
+	public static Map<String, String> builtInLiveries = Maps.newHashMap();
 	public static LiveryListMetadataSerializer serializer = new LiveryListMetadataSerializer();
 	
 	public static void registerLivery(String name, String packName) {
@@ -78,12 +80,15 @@ public class LiveryTextureRegistry implements IResourceManagerReloadListener {
 			try {
 				LiveryListMetadata metadata = (LiveryListMetadata) loadedPack.getResourcePack().getPackMetadata(serializer, "cartlivery");
 				for (String liveryName : metadata.definedLiveries) {
-					registerLivery(liveryName, loadedPack.getResourcePackName());
+					registerLivery(liveryName, I18n.format("cartlivery.respack", loadedPack.getResourcePackName()));
 				}
 			} catch (IOException e) {
 				// probably no pack.mcmeta - ignore it, it will be logged anyway 
 			}
 		}
+		
+		// finally add built-in liveries
+		for(String builtInName : builtInLiveries.keySet()) registerLivery(builtInName, I18n.format("cartlivery.builtin", builtInLiveries.get(builtInName)));
 	}
 	
 	public static class LiveryListMetadata implements IMetadataSection {
