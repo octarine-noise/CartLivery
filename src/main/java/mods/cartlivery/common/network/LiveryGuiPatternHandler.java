@@ -1,16 +1,19 @@
 package mods.cartlivery.common.network;
 
+import net.minecraft.inventory.Container;
 import mods.cartlivery.common.container.ContainerCutter;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class LiveryGuiPatternHandler implements IMessageHandler<LiveryGuiPatternMessage, NopMessage> {
+public class LiveryGuiPatternHandler implements IMessageHandler<LiveryGuiPatternMessage, IMessage> {
 
-	public NopMessage onMessage(LiveryGuiPatternMessage message, MessageContext ctx) {
-		if (ctx.getServerHandler().playerEntity.openContainer instanceof ContainerCutter) {
-			ContainerCutter container = (ContainerCutter) ctx.getServerHandler().playerEntity.openContainer;
-			container.pattern = message.pattern;
-			container.onCraftMatrixChanged(container.inventoryInput);
+	public IMessage onMessage(LiveryGuiPatternMessage message, MessageContext ctx) {
+		Container container = ctx.getServerHandler().playerEntity.openContainer;
+		if (container != null && container instanceof ContainerCutter) {
+			ContainerCutter cutter = (ContainerCutter) container;
+			cutter.pattern = message.pattern;
+			cutter.onCraftMatrixChanged(cutter.inventoryInput);
 		}
 		return null;
 	}

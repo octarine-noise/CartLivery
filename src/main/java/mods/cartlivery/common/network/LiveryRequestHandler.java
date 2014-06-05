@@ -1,25 +1,28 @@
 package mods.cartlivery.common.network;
 
-import mods.cartlivery.ModCartLivery;
+import mods.cartlivery.CommonProxy;
 import mods.cartlivery.common.CartLivery;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class LiveryRequestHandler implements IMessageHandler<LiveryRequestMessage, LiveryUpdateMessage> {
+public class LiveryRequestHandler implements IMessageHandler<LiveryRequestMessage, IMessage> {
 
-	public LiveryUpdateMessage onMessage(LiveryRequestMessage message, MessageContext ctx) {
+	public IMessage onMessage(LiveryRequestMessage message, MessageContext ctx) {
 		World world = DimensionManager.getWorld(message.dimId);
+		if (world == null) return null;
+		
 		Entity cart = world.getEntityByID(message.entityId);
+		if (cart == null) return null;
+		
 		CartLivery livery = (CartLivery) cart.getExtendedProperties(CartLivery.EXT_PROP_NAME);
-		if (livery == null) {
-			ModCartLivery.log.warn(I18n.format("message.cartlivery.invalidLiveryRequest", ctx.getServerHandler().playerEntity.getDisplayName()));
-			return null;
-		}
-		return new LiveryUpdateMessage(cart, livery);
+		if (livery == null) return null;
+
+		CommonProxy.network.sendTo(new LiveryUpdateMessage(cart, livery), ctx.getServerHandler().playerEntity);
+		return null;
 	}
 
 }
