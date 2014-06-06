@@ -6,6 +6,7 @@ import java.lang.reflect.Modifier;
 import mods.cartlivery.client.LiveryTextureRegistry;
 import mods.cartlivery.client.model.ModelCartLivery;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderMinecart;
 import net.minecraft.client.resources.I18n;
@@ -39,7 +40,13 @@ public class ClientProxy extends CommonProxy {
 	
 	private void replaceMinecraftCartModel() {
 		try {
-			Field modelMinecart = RenderMinecart.class.getDeclaredField("modelMinecart");
+			Field modelMinecart = null;
+			for (Field field : RenderMinecart.class.getDeclaredFields()) {
+				if (ModelBase.class.equals(field.getType())) {
+					modelMinecart = field;
+					break;
+				}
+			}
 			modelMinecart.setAccessible(true);
 			for (Class<?> entityClass : ImmutableList.<Class<?>>of(EntityMinecart.class, EntityMinecartTNT.class, EntityMinecartMobSpawner.class)) {
 				RenderMinecart renderer = (RenderMinecart) RenderManager.instance.entityRenderMap.get(entityClass);
