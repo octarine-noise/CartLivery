@@ -1,6 +1,5 @@
 package mods.cartlivery.client;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -9,11 +8,12 @@ import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.client.resources.IResourceManagerReloadListener;
+import net.minecraft.client.resources.ResourceManager;
+import net.minecraft.client.resources.ResourceManagerReloadListener;
 import net.minecraft.client.resources.ResourcePackRepository;
-import net.minecraft.client.resources.data.IMetadataSection;
-import net.minecraft.client.resources.data.IMetadataSerializer;
+import net.minecraft.client.resources.ResourcePackRepositoryEntry;
+import net.minecraft.client.resources.data.MetadataSection;
+import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.util.ResourceLocation;
 
 import com.google.common.base.Predicates;
@@ -28,7 +28,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LiveryTextureRegistry implements IResourceManagerReloadListener {
+public class LiveryTextureRegistry implements ResourceManagerReloadListener {
 
 	public static Map<String, LiveryTextureInfo> map = Maps.newHashMap();
 	public static Map<String, String> builtInLiveries = Maps.newHashMap();
@@ -68,36 +68,36 @@ public class LiveryTextureRegistry implements IResourceManagerReloadListener {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void onResourceManagerReload(IResourceManager var1) {
-		// release OpenGL resources
-		for (LiveryTextureInfo info : map.values()) Minecraft.getMinecraft().renderEngine.deleteTexture(info.texture);
+	public void onResourceManagerReload(ResourceManager var1) {
+		// TextureManager in 1.6.4 does not support unloading
+//		for (LiveryTextureInfo info : map.values()) Minecraft.getMinecraft().renderEngine.deleteTexture(info.texture);
 		map.clear();
 		
 		// list liveries in currently loaded resource packs
 		ResourcePackRepository repo = Minecraft.getMinecraft().getResourcePackRepository();
-		List<ResourcePackRepository.Entry> packList = repo.getRepositoryEntries();
-		for (ResourcePackRepository.Entry loadedPack : packList) {
+		List<ResourcePackRepositoryEntry> packList = repo.getRepositoryEntries();
+		for (ResourcePackRepositoryEntry loadedPack : packList) {
 			try {
 				LiveryListMetadata metadata = (LiveryListMetadata) loadedPack.getResourcePack().getPackMetadata(serializer, "cartlivery");
 				for (String liveryName : metadata.definedLiveries) {
-					registerLivery(liveryName, I18n.format("cartlivery.respack", loadedPack.getResourcePackName()));
+					registerLivery(liveryName, String.format(I18n.getString("cartlivery.respack"), loadedPack.getResourcePackName()));
 				}
-			} catch (IOException e) {
+			} catch (Exception e) {
 				// probably no pack.mcmeta - ignore it, it will be logged anyway 
 			}
 		}
 		
 		// finally add built-in liveries
-		for(String builtInName : builtInLiveries.keySet()) registerLivery(builtInName, I18n.format("cartlivery.builtin", builtInLiveries.get(builtInName)));
+		for(String builtInName : builtInLiveries.keySet()) registerLivery(builtInName, String.format(I18n.getString("cartlivery.builtin"), builtInLiveries.get(builtInName)));
 	}
 	
-	public static class LiveryListMetadata implements IMetadataSection {
+	public static class LiveryListMetadata implements MetadataSection {
 		public Collection<String> definedLiveries = Sets.newHashSet();
 	}
 	
-	public static class LiveryListMetadataSerializer extends IMetadataSerializer {
+	public static class LiveryListMetadataSerializer extends MetadataSerializer {
 		@Override
-		public IMetadataSection parseMetadataSection(String type, JsonObject json) {
+		public MetadataSection parseMetadataSection(String type, JsonObject json) {
 			LiveryListMetadata result = new LiveryListMetadata();
 			if (json.has("cartlivery") && json.get("cartlivery").isJsonObject()) {
 				JsonObject clMetaSection = json.getAsJsonObject("cartlivery");

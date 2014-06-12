@@ -2,13 +2,13 @@ package mods.cartlivery.common.container;
 
 import mods.cartlivery.common.item.ItemSticker;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ContainerCutter extends Container {
@@ -44,7 +44,7 @@ public class ContainerCutter extends Container {
         addSlotToContainer(new Slot(inventoryInput, 0, 106, 36) {
 			@Override
 			public boolean isItemValid(ItemStack stack) {
-				return stack.getItem() == Items.paper;
+				return stack.getItem() == Item.paper;
 			}
         });
         addSlotToContainer(new SlotCrafting(player, inventoryInput, inventoryOutput, 0, 144, 36) {

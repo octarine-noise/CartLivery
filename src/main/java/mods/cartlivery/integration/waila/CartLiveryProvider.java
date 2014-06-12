@@ -33,9 +33,9 @@ public class CartLiveryProvider implements IWailaEntityProvider {
 						currenttip.add(String.format("\u00a7m%s", livery.pattern));
 					} else {
 						if (configHandler.getConfig("cartlivery.showResPack")) {
-							currenttip.add(String.format("%s (%s)", I18n.format("cartlivery." + livery.pattern + ".name"), info.packName));
+							currenttip.add(String.format("%s (%s)", I18n.getString("cartlivery." + livery.pattern + ".name"), info.packName));
 						} else {
-							currenttip.add(I18n.format("cartlivery." + livery.pattern + ".name"));
+							currenttip.add(I18n.getString("cartlivery." + livery.pattern + ".name"));
 						}
 					}
 				}

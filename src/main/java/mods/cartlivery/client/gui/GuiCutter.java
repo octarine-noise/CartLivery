@@ -4,7 +4,7 @@ import mods.cartlivery.CommonProxy;
 import mods.cartlivery.client.LiveryTextureRegistry;
 import mods.cartlivery.client.model.ModelCartLivery;
 import mods.cartlivery.common.container.ContainerCutter;
-import mods.cartlivery.common.network.LiveryGuiPatternMessage;
+import mods.cartlivery.common.network.LiveryGuiPatternPacket;
 import mods.cartlivery.common.utils.ColorUtils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
@@ -27,7 +27,7 @@ public class GuiCutter extends InventoryEffectRenderer {
 	public GuiCutter(EntityPlayer player) {
 		super(new ContainerCutter(player));
 		container = (ContainerCutter) inventorySlots;
-		CommonProxy.network.sendToServer(new LiveryGuiPatternMessage(pattern));
+		CommonProxy.network.sendPacketData(new LiveryGuiPatternPacket(pattern));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -51,7 +51,7 @@ public class GuiCutter extends InventoryEffectRenderer {
 		pattern = LiveryTextureRegistry.cycle(pattern, button.id == 1);
 		container.pattern = pattern;
 		container.onCraftMatrixChanged(container.inventoryInput);
-		CommonProxy.network.sendToServer(new LiveryGuiPatternMessage(pattern));
+		CommonProxy.network.sendPacketData(new LiveryGuiPatternPacket(pattern));
 	}
 
 	@Override

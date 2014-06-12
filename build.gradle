@@ -11,16 +11,16 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+		classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
 	}
 }
 apply plugin: 'forge'
 
 minecraft {
-	version = '1.7.2-10.12.1.1098'
+	version = "1.6.4-9.11.1.964"
 }
 
-jar.baseName = 'CartLivery-1.7.2'
+jar.baseName = 'CartLivery-1.6.4'
 group = 'com.github.octarine-noise'
 version='0.9.3b'
 

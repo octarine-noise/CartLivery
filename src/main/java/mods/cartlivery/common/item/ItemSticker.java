@@ -2,9 +2,7 @@ package mods.cartlivery.common.item;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import mods.cartlivery.CommonProxy;
+import mods.cartlivery.ModCartLivery;
 import mods.cartlivery.client.LiveryTextureInfo;
 import mods.cartlivery.client.LiveryTextureRegistry;
 import mods.cartlivery.common.utils.ColorUtils;
@@ -14,10 +12,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemSticker extends Item {
 
-	public ItemSticker() {
+	public ItemSticker(int id) {
+		super(id);
 		setTextureName("paper");
 		setUnlocalizedName("cartlivery.sticker");
 		setMaxStackSize(4);
@@ -27,10 +28,11 @@ public class ItemSticker extends Item {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs creativeTab, List list) {
+	public void getSubItems(int id, CreativeTabs creativeTab, List list) {
 		for (String pattern : LiveryTextureRegistry.getAvailableLiveries()) list.add(create(pattern));
 	}
 
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -40,15 +42,15 @@ public class ItemSticker extends Item {
 		LiveryTextureInfo info = LiveryTextureRegistry.map.get(tag.getString("pattern"));
 		
 		if (info == null) {
-			list.add(I18n.format("cartlivery.unknown", tag.getString("pattern")));
+			list.add(String.format(I18n.getString("cartlivery.unknown"), tag.getString("pattern")));
 		} else {
-			list.add(I18n.format("cartlivery." + tag.getString("pattern") + ".name"));
+			list.add(I18n.getString("cartlivery." + tag.getString("pattern") + ".name"));
 		}
 		list.add(ColorUtils.getColorName(tag.getInteger("patternColor")));
 	}
 
 	public static ItemStack create(String pattern, int color) {
-		ItemStack result = new ItemStack(CommonProxy.itemSticker);
+		ItemStack result = new ItemStack(ModCartLivery.proxy.itemSticker);
 		NBTTagCompound tag = new NBTTagCompound();
 		result.setTagCompound(tag);
 		tag.setString("pattern", pattern);

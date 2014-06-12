@@ -9,7 +9,8 @@ import net.minecraft.world.World;
 
 public class ItemCutter extends Item {
 
-	public ItemCutter() {
+	public ItemCutter(int id) {
+		super(id);
 		setTextureName("shears");
 		setUnlocalizedName("cartlivery.cutter");
 		setMaxStackSize(1);

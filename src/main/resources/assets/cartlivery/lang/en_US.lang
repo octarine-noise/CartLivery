@@ -43,3 +43,4 @@ message.cartlivery.registerBuiltIn=Registering %d built-in liveries from mod %s
 message.cartlivery.invalidExclusion=Mod %s tried to register a class exclusion for a non-existent class: %s
 message.cartlivery.invalidLiveryRequest=Received an invalid livery request packet from player %s
 message.cartlivery.invalidLiveryUpdate=Received an invalid livery update packet
+message.cartlivery.unacceptableWailaVersion=You need Waila version 1.5.0 or higher for Waila integration

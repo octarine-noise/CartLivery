@@ -18,7 +18,10 @@ import net.minecraft.entity.item.EntityMinecartTNT;
 import com.google.common.collect.ImmutableList;
 
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.versioning.DefaultArtifactVersion;
+import cpw.mods.fml.common.versioning.Restriction;
 
 public class ClientProxy extends CommonProxy {
 
@@ -28,14 +31,20 @@ public class ClientProxy extends CommonProxy {
 		
 		((SimpleReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new LiveryTextureRegistry());
 		
-		ModCartLivery.log.info(I18n.format("message.cartlivery.overwriteModel"));
+		ModCartLivery.log.info(I18n.getString("message.cartlivery.overwriteModel"));
 		if (Loader.isModLoaded("Railcraft")) {
 			replaceRailcraftCartModel();	
 		} else {
 			replaceMinecraftCartModel();
 		}
 		
-		FMLInterModComms.sendMessage("Waila", "register", "mods.cartlivery.integration.waila.CartLiveryWailaModule.register");
+		if (Loader.isModLoaded("Waila")) {
+			if (isWailaVersionSupported()) {
+				FMLInterModComms.sendMessage("Waila", "register", "mods.cartlivery.integration.waila.CartLiveryWailaModule.register");
+			} else {
+				ModCartLivery.log.warning(I18n.getString("message.cartlivery.unacceptableWailaVersion"));
+			}
+		}
 	}
 	
 	private void replaceMinecraftCartModel() {
@@ -53,7 +62,7 @@ public class ClientProxy extends CommonProxy {
 				modelMinecart.set(renderer, new ModelCartLivery());
 			}
 		} catch (Exception e) {
-			ModCartLivery.log.warn(I18n.format("message.cartlivery.overwriteModelMinecraftFail"));
+			ModCartLivery.log.warning(I18n.getString("message.cartlivery.overwriteModelMinecraftFail"));
 		}
 	}
 	
@@ -69,7 +78,15 @@ public class ClientProxy extends CommonProxy {
 			defaultCore.set(null, new ModelCartLivery());
 			modifiers.set(defaultCore, defaultCore.getModifiers() | Modifier.FINAL);
 		} catch (Exception e) {
-			ModCartLivery.log.warn(I18n.format("message.cartlivery.overwriteModelRailcraftFail"));
+			ModCartLivery.log.warning(I18n.getString("message.cartlivery.overwriteModelRailcraftFail"));
 		}
+	}
+	
+	public static boolean isWailaVersionSupported() {
+		Restriction acceptedVersions = new Restriction(new DefaultArtifactVersion("1.5"), true, null, false);
+		for (ModContainer mod : Loader.instance().getActiveModList()) {
+			if ("Waila".equals(mod.getName())) return acceptedVersions.containsVersion(mod.getProcessedVersion()); 
+		}
+		return false;
 	}
 }

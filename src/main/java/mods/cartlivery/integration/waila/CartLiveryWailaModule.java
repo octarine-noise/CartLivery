@@ -1,7 +1,7 @@
 package mods.cartlivery.integration.waila;
 
-import net.minecraft.entity.item.EntityMinecart;
 import mcp.mobius.waila.api.IWailaRegistrar;
+import net.minecraft.entity.item.EntityMinecart;
 
 
 public class CartLiveryWailaModule {
@@ -12,5 +12,4 @@ public class CartLiveryWailaModule {
 		registrar.addConfig("CartLivery", "cartlivery.showResPack");
 		registrar.addConfig("CartLivery", "cartlivery.showColors");
 	}
-	
 }
